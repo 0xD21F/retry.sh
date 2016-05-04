@@ -4,4 +4,4 @@ A small bash script that automates retrying of commands an arbitrary number of t
 
 ## Example
 
->/usr/lib/retry.sh -s "php example.php" -r 15
+>/usr/bin/retry.sh -s "php example.php" -r 15

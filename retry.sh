@@ -1,10 +1,12 @@
 #!/bin/bash
 # Flags for mandatory args and default values
 SFLAG=false
-TFLAG=false
+RFLAG=false
+WFLAG=false
 RETRY_MAX=5
 SCRIPT_ARG=
 PWD=$(pwd)
+RETRY_WAIT_MINS=15
 
 # Echo help text
 usage() { 
@@ -13,11 +15,13 @@ echo "$(basename "$0") -- shell script wrapper to retry command line scripts a s
 Where:
     -h  Show this help text
     -s  Set the script to be run (example: retry.sh -s \"/usr/lib/myscript.sh -v\")
-    -r  Max retries (default 5)" 1>&2; exit 1;
+    -r  Max retries (default 5)
+    -w  Number of minutes to wait between retries (default:15)" 1>&2; exit 1;
+
 }
 
 # Parse args
-while getopts 's:r:h' option; do
+while getopts 's:r:h:w:' option; do
 	case "$option" in
 		h) usage
 		   ;;
@@ -25,7 +29,10 @@ while getopts 's:r:h' option; do
 		   SFLAG=true
 		   ;;
 		r) RETRY_MAX=${OPTARG}
-		   TFLAG=true
+		   RFLAG=true
+		   ;;
+		w) RETRY_WAIT_MINS=${OPTARG}
+		   WFLAG=true
 		   ;;
 		:) printf "Missing argument for -%s\n" "$OPTARG" >&2
 		   usage
@@ -59,6 +66,7 @@ do
 		RETRY_MAX=0
 	else
 		RETRY_MAX=$((RETRY_MAX-1));
+		sleep ${RETRY_WAIT_MINS}m
         	# Executing script returned anything other than 0 (failed)
 	fi
 

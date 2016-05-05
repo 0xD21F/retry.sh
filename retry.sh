@@ -65,9 +65,9 @@ do
         	# Executing script returned 0 (succeded)
 		RETRY_MAX=0
 	else
+        	# Executing script returned anything other than 0 (failed)
 		RETRY_MAX=$((RETRY_MAX-1));
 		sleep ${RETRY_WAIT_MINS}m
-        	# Executing script returned anything other than 0 (failed)
 	fi
 
 done

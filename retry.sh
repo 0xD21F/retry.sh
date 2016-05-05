@@ -14,7 +14,7 @@ echo "$(basename "$0") -- shell script wrapper to retry command line scripts a s
 
 Where:
     -h  Show this help text
-    -s  Set the script to be run (example: retry.sh -s \"/usr/lib/myscript.sh -v\")
+    -s  Set the script to be run (example: retry.sh -s \"/usr/bin/myscript.sh -v\")
     -r  Max retries (default 5)
     -w  Number of minutes to wait between retries (default:15)" 1>&2; exit 1;
 
@@ -48,7 +48,7 @@ shift $(($OPTIND -1))
 # Check if mandatory args are set
 if ! $SFLAG
 then
-	echo "A script must be speficied using the -s argument. (example: retry.sh -s \"/usr/lib/myscript.sh -v\")" >&2
+	echo "A script must be speficied using the -s argument. (example: retry.sh -s \"/usr/bin/myscript.sh -v\")" >&2
 	exit 1
 fi
 
